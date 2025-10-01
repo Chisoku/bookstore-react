@@ -89,9 +89,9 @@ const Header = () => {
 
   return (
     <>
-      <AntHeader 
-        style={{ 
-          background: 'white', 
+      <AntHeader
+        style={{
+          background: 'white',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
           padding: '0 24px',
           position: 'sticky',
@@ -105,11 +105,11 @@ const Header = () => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div 
-            style={{ 
-              fontSize: '24px', 
-              fontWeight: 'bold', 
-              color: '#1890ff', 
+          <div
+            style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: '#1890ff',
               marginRight: '48px',
               cursor: 'pointer'
             }}
@@ -118,15 +118,15 @@ const Header = () => {
             <BookOutlined style={{ marginRight: '8px' }} />
             BookStore
           </div>
-          
+
           {/* Desktop Menu */}
           <Menu
             mode="horizontal"
             selectedKeys={[location.pathname]}
             items={menuItems}
             onClick={handleMenuClick}
-            style={{ 
-              border: 'none', 
+            style={{
+              border: 'none',
               background: 'transparent',
               display: !isMobile ? 'flex' : 'none'
             }}
@@ -134,16 +134,6 @@ const Header = () => {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          {/* Search Button */}
-          <Button 
-            type="text" 
-            icon={<SearchOutlined />}
-            onClick={() => navigate('/')}
-            style={{ display: !isMobile ? 'flex' : 'none' }}
-          >
-            Tìm kiếm
-          </Button>
-
           {/* User Menu */}
           {user ? (
             <Dropdown
@@ -181,8 +171,8 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenuVisible && (
-        <div style={{ 
-          background: 'white', 
+        <div style={{
+          background: 'white',
           borderBottom: '1px solid #f0f0f0',
           display: isMobile ? 'block' : 'none',
           width: '100%'
