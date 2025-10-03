@@ -17,7 +17,6 @@ import {
   Pagination,
 } from 'antd';
 import {
-  SearchOutlined,
   UserOutlined,
   EyeOutlined,
   LockOutlined,
@@ -64,16 +63,16 @@ const Users: React.FC = () => {
   const handleToggleStatus = async (userId: string) => {
     try {
       const updatedUser = await toggleUserStatus(userId);
-      setUsers(users.map(user => 
+      setUsers(users.map(user =>
         user.id === userId ? updatedUser : user
       ));
-      
+
       // Reload statistics
       const response = await getUsers(pageIndex, pageSize);
       setActiveAccounts(response.activeAccounts || 0);
       setAdminCount(response.adminCount || 0);
       setCustomerCount(response.customerCount || 0);
-      
+
       message.success(
         updatedUser.enabled ? 'Mở khóa tài khoản thành công' : 'Khóa tài khoản thành công'
       );
@@ -104,8 +103,8 @@ const Users: React.FC = () => {
       key: 'info',
       render: (record: User) => (
         <div className="flex items-center space-x-3">
-          <Avatar 
-            icon={<UserOutlined />} 
+          <Avatar
+            icon={<UserOutlined />}
             className={record.role === 'ADMIN' ? 'bg-red-500' : 'bg-blue-500'}
           />
           <div>
@@ -253,7 +252,7 @@ const Users: React.FC = () => {
             className="max-w-md"
           />
         </div>
-        
+
         <Table
           columns={columns}
           dataSource={filteredUsers}
@@ -261,7 +260,7 @@ const Users: React.FC = () => {
           loading={loading}
           pagination={false}
         />
-        
+
         <div className="mt-4 flex justify-end">
           <Pagination
             current={pageIndex + 1}
@@ -269,7 +268,7 @@ const Users: React.FC = () => {
             total={totalItems}
             showSizeChanger
             showQuickJumper
-            showTotal={(total, range) => 
+            showTotal={(total, range) =>
               `${range[0]}-${range[1]} của ${total} người dùng`
             }
             onChange={handlePageChange}
@@ -290,9 +289,9 @@ const Users: React.FC = () => {
           <div className="space-y-6">
             {/* User Avatar and Basic Info */}
             <div className="text-center">
-              <Avatar 
+              <Avatar
                 size={80}
-                icon={<UserOutlined />} 
+                icon={<UserOutlined />}
                 className={selectedUser.role === 'ADMIN' ? 'bg-red-500' : 'bg-blue-500'}
               />
               <h2 className="text-xl font-bold mt-4">{selectedUser.fullName}</h2>

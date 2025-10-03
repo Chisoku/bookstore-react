@@ -91,21 +91,17 @@ export type LoginApiData = {
   role: string;
 };
 
-// Common pagination response
 export type PaginatedResponse<TItem> = {
   items: TItem[];
   pageIndex: number;
   pageSize: number;
   totalItems: number;
   totalPages: number;
-  // Optional aggregate fields that some endpoints (e.g., categories) may provide
   emptyCategory?: number;
   notEmptyCategory?: number;
-  // Optional aggregate fields for orders
   pendingOrders?: number;
   processingOrders?: number;
   totalRevenue?: number;
-  // Optional aggregate fields for users
   activeAccounts?: number;
   adminCount?: number;
   customerCount?: number;
