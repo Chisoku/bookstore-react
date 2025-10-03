@@ -5,8 +5,6 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
   DollarOutlined,
-  RiseOutlined,
-  FallOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { getDashboardStats, type DashboardStats } from '../services/dashboard';
@@ -116,13 +114,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
         <p className="text-gray-600">Tổng quan hệ thống quản lý sách</p>
       </div>
 
-      {/* Statistics Cards */}
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={12} lg={6}>
           <Card className="shadow-sm hover:shadow-md transition-shadow">
@@ -210,7 +206,6 @@ const Dashboard: React.FC = () => {
         </Col>
       </Row>
 
-      {/* Recent Orders and Low Stock Books */}
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
           <Card
@@ -247,7 +242,6 @@ const Dashboard: React.FC = () => {
         </Col>
       </Row>
 
-      {/* Quick Actions */}
       <Row gutter={[16, 16]}>
         <Col xs={24}>
           <Card title="Thao tác nhanh" className="shadow-sm">

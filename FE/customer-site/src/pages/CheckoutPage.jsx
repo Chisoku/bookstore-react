@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Form, 
-  Input, 
-  Button, 
-  Card, 
-  Typography, 
-  Row, 
-  Col, 
-  Divider, 
-  Radio, 
-  Space,
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Typography,
+  Row,
+  Col,
+  Divider,
   Steps,
   Image,
-  Tag,
   Alert,
   Spin
 } from 'antd';
-import { 
-  UserOutlined, 
-  PhoneOutlined, 
+import {
+  UserOutlined,
+  PhoneOutlined,
   EnvironmentOutlined,
   CreditCardOutlined,
   ShoppingOutlined,
   ArrowLeftOutlined,
   CheckCircleOutlined,
-  BankOutlined,
-  WalletOutlined,
   TruckOutlined
 } from '@ant-design/icons';
 import { useCart } from '../contexts/CartContext';
@@ -40,10 +35,9 @@ const { TextArea } = Input;
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const { cartItems, getCartTotal, clearCart } = useCart();
+  const { cartItems, getCartTotal } = useCart();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('cod');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [form] = Form.useForm();
@@ -73,7 +67,7 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (values) => {
     setLoading(true);
-    
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -94,10 +88,9 @@ const CheckoutPage = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (response.success) {
         toast.success('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.');
-        // API sẽ tự động clear cart sau khi tạo order thành công
         navigate('/orders');
       } else {
         toast.error(response.message || 'Đặt hàng thất bại');
@@ -143,11 +136,11 @@ const CheckoutPage = () => {
   ];
 
   const renderOrderSummary = () => (
-    <Card 
+    <Card
       title={
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           gap: '8px',
           fontSize: '18px',
           fontWeight: '600'
@@ -156,7 +149,7 @@ const CheckoutPage = () => {
           Tóm tắt đơn hàng
         </div>
       }
-      style={{ 
+      style={{
         borderRadius: '12px',
         boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
         border: 'none',
@@ -172,9 +165,9 @@ const CheckoutPage = () => {
           </Text>
           <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {cartItems.map(item => (
-              <div key={item.id} style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <div key={item.id} style={{
+                display: 'flex',
+                alignItems: 'center',
                 gap: '12px',
                 padding: '12px',
                 background: '#f8f9fa',
@@ -183,9 +176,9 @@ const CheckoutPage = () => {
                 <Image
                   src={item.image || (item.coverImage && item.coverImage.startsWith('data:image') ? item.coverImage : `data:image/jpeg;base64,${item.coverImage}`)}
                   alt={item.title}
-                  style={{ 
-                    width: '50px', 
-                    height: '60px', 
+                  style={{
+                    width: '50px',
+                    height: '60px',
                     objectFit: 'cover',
                     borderRadius: '6px'
                   }}
@@ -220,16 +213,16 @@ const CheckoutPage = () => {
             ))}
           </div>
         </div>
-        
+
         <Divider style={{ margin: '16px 0' }} />
-        
+
         {/* Price Summary */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Text style={{ fontSize: '14px', color: '#666' }}>Tạm tính:</Text>
             <Text style={{ fontSize: '14px', color: '#1a1a1a' }}>{formatPrice(getCartTotal())}</Text>
           </div>
-          
+
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Text style={{ fontSize: '14px', color: '#666' }}>Phí vận chuyển:</Text>
             <Text style={{ fontSize: '14px', color: '#1a1a1a' }}>
@@ -240,13 +233,13 @@ const CheckoutPage = () => {
               )}
             </Text>
           </div>
-          
+
           <Divider style={{ margin: '12px 0' }} />
-          
+
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Text strong style={{ fontSize: '16px', color: '#1a1a1a' }}>Tổng cộng:</Text>
-            <Text strong style={{ 
-              fontSize: '18px', 
+            <Text strong style={{
+              fontSize: '18px',
               color: '#f5222d',
               fontWeight: 'bold'
             }}>
@@ -254,7 +247,7 @@ const CheckoutPage = () => {
             </Text>
           </div>
         </div>
-        
+
         {shippingFee > 0 && (
           <Alert
             message={`Mua thêm ${formatPrice(200000 - getCartTotal())} để được miễn phí vận chuyển`}
@@ -268,11 +261,11 @@ const CheckoutPage = () => {
   );
 
   const renderShippingForm = () => (
-    <Card 
+    <Card
       title={
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           gap: '8px',
           fontSize: '18px',
           fontWeight: '600'
@@ -281,7 +274,7 @@ const CheckoutPage = () => {
           Thông tin giao hàng
         </div>
       }
-      style={{ 
+      style={{
         borderRadius: '12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         border: '1px solid #f0f0f0',
@@ -293,61 +286,61 @@ const CheckoutPage = () => {
         layout="vertical"
         onFinish={handleSubmit}
       >
-                 <Row gutter={[16, 0]}>
-           <Col xs={24} md={12}>
-             <Form.Item
-               name="fullName"
-               label="Tên người nhận"
-               rules={[{ required: true, message: 'Vui lòng nhập tên người nhận' }]}
-             >
-               <Input 
-                 prefix={<UserOutlined style={{ color: '#d9d9d9' }} />} 
-                 placeholder="Nhập tên người nhận"
-                 size="large"
-                 style={{ borderRadius: '8px' }}
-               />
-             </Form.Item>
-           </Col>
-           
-           <Col xs={24} md={12}>
-             <Form.Item
-               name="phone"
-               label="Số điện thoại người nhận"
-               rules={[
-                 { required: true, message: 'Vui lòng nhập số điện thoại' },
-                 { pattern: /^[0-9]{10,11}$/, message: 'Số điện thoại không hợp lệ' }
-               ]}
-             >
-               <Input 
-                 prefix={<PhoneOutlined style={{ color: '#d9d9d9' }} />} 
-                 placeholder="Nhập số điện thoại người nhận"
-                 size="large"
-                 style={{ borderRadius: '8px' }}
-               />
-             </Form.Item>
-           </Col>
-         </Row>
+        <Row gutter={[16, 0]}>
+          <Col xs={24} md={12}>
+            <Form.Item
+              name="fullName"
+              label="Tên người nhận"
+              rules={[{ required: true, message: 'Vui lòng nhập tên người nhận' }]}
+            >
+              <Input
+                prefix={<UserOutlined style={{ color: '#d9d9d9' }} />}
+                placeholder="Nhập tên người nhận"
+                size="large"
+                style={{ borderRadius: '8px' }}
+              />
+            </Form.Item>
+          </Col>
 
-         <Row gutter={[16, 0]}>
-           <Col xs={24}>
-             <Form.Item
-               name="address"
-               label="Địa chỉ giao hàng"
-               rules={[{ required: true, message: 'Vui lòng nhập địa chỉ giao hàng' }]}
-             >
-               <TextArea
-                 prefix={<EnvironmentOutlined style={{ color: '#d9d9d9' }} />}
-                 placeholder="Nhập địa chỉ giao hàng chi tiết"
-                 rows={3}
-                 style={{ borderRadius: '8px' }}
-               />
-             </Form.Item>
-           </Col>
-         </Row>
+          <Col xs={24} md={12}>
+            <Form.Item
+              name="phone"
+              label="Số điện thoại người nhận"
+              rules={[
+                { required: true, message: 'Vui lòng nhập số điện thoại' },
+                { pattern: /^[0-9]{10,11}$/, message: 'Số điện thoại không hợp lệ' }
+              ]}
+            >
+              <Input
+                prefix={<PhoneOutlined style={{ color: '#d9d9d9' }} />}
+                placeholder="Nhập số điện thoại người nhận"
+                size="large"
+                style={{ borderRadius: '8px' }}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 0]}>
+          <Col xs={24}>
+            <Form.Item
+              name="address"
+              label="Địa chỉ giao hàng"
+              rules={[{ required: true, message: 'Vui lòng nhập địa chỉ giao hàng' }]}
+            >
+              <TextArea
+                prefix={<EnvironmentOutlined style={{ color: '#d9d9d9' }} />}
+                placeholder="Nhập địa chỉ giao hàng chi tiết"
+                rows={3}
+                style={{ borderRadius: '8px' }}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Form.Item name="note" label="Ghi chú">
-          <TextArea 
-            placeholder="Ghi chú thêm (không bắt buộc)" 
+          <TextArea
+            placeholder="Ghi chú thêm (không bắt buộc)"
             rows={3}
             style={{ borderRadius: '8px' }}
           />
@@ -357,11 +350,11 @@ const CheckoutPage = () => {
   );
 
   const renderPaymentForm = () => (
-    <Card 
+    <Card
       title={
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
           gap: '8px',
           fontSize: '18px',
           fontWeight: '600'
@@ -370,7 +363,7 @@ const CheckoutPage = () => {
           Phương thức thanh toán
         </div>
       }
-      style={{ 
+      style={{
         borderRadius: '12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         border: '1px solid #f0f0f0',
@@ -378,9 +371,9 @@ const CheckoutPage = () => {
       }}
     >
       <div style={{ width: '100%' }}>
-        <div style={{ 
-          padding: '20px', 
-          border: '2px solid #52c41a', 
+        <div style={{
+          padding: '20px',
+          border: '2px solid #52c41a',
           borderRadius: '12px',
           width: '100%',
           background: '#f6ffed',
@@ -397,9 +390,9 @@ const CheckoutPage = () => {
                 Thanh toán bằng tiền mặt khi nhận hàng
               </Text>
             </div>
-            <div style={{ 
-              position: 'absolute', 
-              top: '12px', 
+            <div style={{
+              position: 'absolute',
+              top: '12px',
               right: '12px',
               background: '#52c41a',
               color: 'white',
@@ -412,7 +405,7 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
-        
+
         <div style={{ marginTop: '16px' }}>
           <Alert
             message="Các phương thức thanh toán khác đang được nâng cấp"
@@ -429,7 +422,7 @@ const CheckoutPage = () => {
   // Route protection
   if (!isAuthenticated) {
     return (
-      <div style={{ 
+      <div style={{
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
@@ -447,17 +440,17 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       background: '#f5f5f5',
       padding: '24px 0'
     }}>
-      <div style={{ 
-        maxWidth: '1200px', 
-        margin: '0 auto', 
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
         padding: '0 24px'
       }}>
-        <Title level={2} style={{ 
+        <Title level={2} style={{
           marginBottom: '32px',
           color: '#1a1a1a',
           display: 'flex',
@@ -467,31 +460,31 @@ const CheckoutPage = () => {
           <CreditCardOutlined style={{ color: '#667eea' }} />
           Thanh toán
         </Title>
-        
-        <Steps 
-          current={0} 
-          items={steps} 
+
+        <Steps
+          current={0}
+          items={steps}
           style={{ marginBottom: '32px' }}
           progressDot
         />
-        
+
         <Row gutter={[24, 24]}>
           <Col xs={24} lg={16}>
             <div>
               {renderShippingForm()}
               {renderPaymentForm()}
-              
-              <div style={{ 
-                display: 'flex', 
+
+              <div style={{
+                display: 'flex',
                 justifyContent: 'space-between',
                 gap: '16px',
                 marginTop: '24px'
               }}>
-                <Button 
-                  size="large" 
+                <Button
+                  size="large"
                   icon={<ArrowLeftOutlined />}
                   onClick={() => navigate('/cart')}
-                  style={{ 
+                  style={{
                     height: '48px',
                     fontSize: '16px',
                     borderRadius: '8px',
@@ -501,13 +494,13 @@ const CheckoutPage = () => {
                 >
                   Quay lại giỏ hàng
                 </Button>
-                
+
                 <Button
                   type="primary"
                   size="large"
                   loading={loading}
                   onClick={() => form.submit()}
-                  style={{ 
+                  style={{
                     height: '48px',
                     fontSize: '16px',
                     fontWeight: '600',
@@ -522,7 +515,7 @@ const CheckoutPage = () => {
               </div>
             </div>
           </Col>
-          
+
           <Col xs={24} lg={8}>
             {renderOrderSummary()}
           </Col>
