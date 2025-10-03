@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { 
-  Form, 
-  Input, 
-  Button, 
-  Card, 
-  Typography, 
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Typography,
   Checkbox
 } from 'antd';
-import { 
-  UserOutlined, 
+import {
+  UserOutlined,
   LockOutlined
 } from '@ant-design/icons';
 import { useAuth } from '../contexts/AuthContext';
@@ -25,7 +25,6 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
-  // Lấy redirect URL từ query parameters
   const searchParams = new URLSearchParams(location.search);
   const redirectTo = searchParams.get('redirect') || '/';
 
@@ -46,14 +45,6 @@ const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleGoogleLogin = () => {
-    message.info('Tính năng đăng nhập Google đang phát triển');
-  };
-
-  const handleFacebookLogin = () => {
-    message.info('Tính năng đăng nhập Facebook đang phát triển');
   };
 
   return (
@@ -80,8 +71,8 @@ const LoginPage = () => {
                 { required: true, message: 'Vui lòng nhập tên đăng nhập' },
               ]}
             >
-              <Input 
-                prefix={<UserOutlined />} 
+              <Input
+                prefix={<UserOutlined />}
                 placeholder="Nhập tên đăng nhập"
                 size="large"
               />
@@ -126,7 +117,7 @@ const LoginPage = () => {
             </Form.Item>
           </Form>
 
-          
+
 
           <div className="text-center mt-6">
             <Text type="secondary">
