@@ -6,7 +6,7 @@ import {
   Button,
   Card,
   Typography,
-  Checkbox
+  Checkbox,
 } from 'antd';
 import {
   UserOutlined,
@@ -41,6 +41,7 @@ const LoginPage = () => {
         toast.error(result.error || 'Đăng nhập thất bại');
       }
     } catch (error) {
+      console.log(error)
       toast.error('Có lỗi xảy ra, vui lòng thử lại');
     } finally {
       setLoading(false);
@@ -48,87 +49,85 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-8">
-      <div className="w-full max-w-md">
-        <Card className="shadow-lg">
-          <div className="text-center mb-6">
-            <Title level={2} className="mb-2">Đăng nhập</Title>
-            <Text type="secondary">Chào mừng bạn quay trở lại!</Text>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4" >
+      <Card className="w-full max-w-sm shadow-lg" style={{ marginRight: 600, marginLeft: 600 }}>
+        <div className="text-center mb-8">
+          <Title level={2} className="mb-2">Đăng nhập</Title>
+          <Text type="secondary">Chào mừng bạn quay trở lại!</Text>
+        </div>
 
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={handleSubmit}
-            initialValues={{
-              remember: true
-            }}
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={{
+            remember: true
+          }}
+        >
+          <Form.Item
+            name="username"
+            label="Tên đăng nhập"
+            rules={[
+              { required: true, message: 'Vui lòng nhập tên đăng nhập' },
+            ]}
           >
-            <Form.Item
-              name="username"
-              label="Tên đăng nhập"
-              rules={[
-                { required: true, message: 'Vui lòng nhập tên đăng nhập' },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined />}
-                placeholder="Nhập tên đăng nhập"
-                size="large"
-              />
-            </Form.Item>
+            <Input
+              prefix={<UserOutlined />}
+              placeholder="Nhập tên đăng nhập"
+              size="large"
+            />
+          </Form.Item>
 
-            <Form.Item
-              name="password"
-              label="Mật khẩu"
-              rules={[
-                { required: true, message: 'Vui lòng nhập mật khẩu' },
-                { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự' }
-              ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined />}
-                placeholder="Nhập mật khẩu"
-                size="large"
-              />
-            </Form.Item>
+          <Form.Item
+            name="password"
+            label="Mật khẩu"
+            rules={[
+              { required: true, message: 'Vui lòng nhập mật khẩu' },
+              { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự' }
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined />}
+              placeholder="Nhập mật khẩu"
+              size="large"
+            />
+          </Form.Item>
 
-            <Form.Item>
-              <div className="flex justify-between items-center">
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Ghi nhớ đăng nhập</Checkbox>
-                </Form.Item>
-                <Link to="/forgot-password" className="text-blue-600 hover:text-blue-800">
-                  Quên mật khẩu?
-                </Link>
-              </div>
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                loading={loading}
-                block
-              >
-                Đăng nhập
-              </Button>
-            </Form.Item>
-          </Form>
-
-
-
-          <div className="text-center mt-6">
-            <Text type="secondary">
-              Chưa có tài khoản?{' '}
-              <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
-                Đăng ký ngay
+          <Form.Item>
+            <div className="flex justify-between items-center">
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Ghi nhớ đăng nhập</Checkbox>
+              </Form.Item>
+              <Link to="/forgot-password" className="text-blue-600 hover:text-blue-800">
+                Quên mật khẩu?
               </Link>
-            </Text>
-          </div>
-        </Card>
-      </div>
+            </div>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              loading={loading}
+              block
+            >
+              Đăng nhập
+            </Button>
+          </Form.Item>
+        </Form>
+
+
+
+        <div className="text-center mt-6">
+          <Text type="secondary">
+            Chưa có tài khoản?{' '}
+            <Link to="/register" className="text-blue-600 hover:text-blue-800 font-medium">
+              Đăng ký ngay
+            </Link>
+          </Text>
+        </div>
+      </Card>
     </div>
   );
 };
