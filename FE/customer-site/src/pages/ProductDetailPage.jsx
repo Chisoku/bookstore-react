@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-  Row, 
-  Col, 
-  Card, 
-  Button, 
-  InputNumber, 
-  Rate, 
-  Tag, 
-  Typography, 
-  Divider, 
-  Space, 
+import {
+  Row,
+  Col,
+  Card,
+  Button,
+  InputNumber,
+  Tag,
+  Typography,
+  Divider,
   Image,
-  message,
   Breadcrumb,
-  Spin,
   Empty,
   Skeleton
 } from 'antd';
-import { 
-  ShoppingCartOutlined, 
+import {
+  ShoppingCartOutlined,
   HomeOutlined,
   BookOutlined,
   CalendarOutlined,
@@ -51,7 +47,7 @@ const ProductDetailPage = () => {
     setLoading(true);
     try {
       const response = await apiClient.get(`/customer/books/${id}`);
-      
+
       if (response && response.success) {
         const bookData = response.data;
         setBook({
@@ -134,14 +130,14 @@ const ProductDetailPage = () => {
 
   if (loading) {
     return (
-      <div style={{ 
+      <div style={{
         minHeight: '100vh',
         background: '#f5f5f5',
         padding: '24px 0'
       }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto', 
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
           padding: '0 24px'
         }}>
           <Skeleton active paragraph={{ rows: 1 }} style={{ marginBottom: '24px' }} />
@@ -162,15 +158,15 @@ const ProductDetailPage = () => {
 
   if (!book) {
     return (
-      <div style={{ 
+      <div style={{
         minHeight: '100vh',
         background: '#f5f5f5',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-        <Empty 
-          description="Không tìm thấy sách" 
+        <Empty
+          description="Không tìm thấy sách"
           style={{ padding: '48px 0' }}
         />
       </div>
@@ -178,18 +174,18 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       background: '#f5f5f5',
       padding: '24px 0'
     }}>
-      <div style={{ 
-        maxWidth: '1200px', 
-        margin: '0 auto', 
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
         padding: '0 24px'
       }}>
         {/* Breadcrumb */}
-        <div style={{ 
+        <div style={{
           background: 'white',
           padding: '16px 24px',
           borderRadius: '12px',
@@ -197,7 +193,7 @@ const ProductDetailPage = () => {
           marginBottom: '24px',
           border: '1px solid #f0f0f0'
         }}>
-          <Breadcrumb 
+          <Breadcrumb
             items={breadcrumbItems.map((item, index) => ({
               ...item,
               title: (
@@ -214,15 +210,15 @@ const ProductDetailPage = () => {
                   background: index === breadcrumbItems.length - 1 ? '#f0f8ff' : 'transparent',
                   border: index === breadcrumbItems.length - 1 ? '1px solid #d6e4ff' : 'none'
                 }}
-                onClick={item.onClick}
-                onMouseEnter={item.onClick ? (e) => {
-                  e.target.style.background = '#f5f5f5';
-                  e.target.style.color = '#1890ff';
-                } : undefined}
-                onMouseLeave={item.onClick ? (e) => {
-                  e.target.style.background = index === breadcrumbItems.length - 1 ? '#f0f8ff' : 'transparent';
-                  e.target.style.color = index === breadcrumbItems.length - 1 ? '#1890ff' : '#666';
-                } : undefined}
+                  onClick={item.onClick}
+                  onMouseEnter={item.onClick ? (e) => {
+                    e.target.style.background = '#f5f5f5';
+                    e.target.style.color = '#1890ff';
+                  } : undefined}
+                  onMouseLeave={item.onClick ? (e) => {
+                    e.target.style.background = index === breadcrumbItems.length - 1 ? '#f0f8ff' : 'transparent';
+                    e.target.style.color = index === breadcrumbItems.length - 1 ? '#1890ff' : '#666';
+                  } : undefined}
                 >
                   {item.title}
                 </div>
@@ -237,7 +233,7 @@ const ProductDetailPage = () => {
                 fontSize: '12px'
               }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M9.707 18.707l6-6a.999.999 0 000-1.414l-6-6a.999.999 0 10-1.414 1.414L13.586 12l-5.293 5.293a.999.999 0 101.414 1.414z"/>
+                  <path d="M9.707 18.707l6-6a.999.999 0 000-1.414l-6-6a.999.999 0 10-1.414 1.414L13.586 12l-5.293 5.293a.999.999 0 101.414 1.414z" />
                 </svg>
               </div>
             }
@@ -247,10 +243,10 @@ const ProductDetailPage = () => {
             }}
           />
         </div>
-        
+
         {/* Main Product Card */}
-        <Card style={{ 
-          borderRadius: '16px', 
+        <Card style={{
+          borderRadius: '16px',
           boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
           border: 'none',
           overflow: 'hidden'
@@ -258,7 +254,7 @@ const ProductDetailPage = () => {
           <Row gutter={[48, 24]}>
             {/* Product Images */}
             <Col xs={24} md={12} lg={10}>
-              <div style={{ 
+              <div style={{
                 textAlign: 'center',
                 background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
                 borderRadius: '12px',
@@ -269,8 +265,8 @@ const ProductDetailPage = () => {
                   <Image
                     src={book.coverImage}
                     alt={book.title}
-                    style={{ 
-                      maxHeight: '500px', 
+                    style={{
+                      maxHeight: '500px',
                       objectFit: 'contain',
                       borderRadius: '8px',
                       boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
@@ -311,7 +307,7 @@ const ProductDetailPage = () => {
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 {/* Title and Author */}
                 <div style={{ marginBottom: '24px' }}>
-                  <Title level={1} style={{ 
+                  <Title level={1} style={{
                     marginBottom: '12px',
                     color: '#1a1a1a',
                     fontSize: '32px',
@@ -322,8 +318,8 @@ const ProductDetailPage = () => {
                   </Title>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                     <UserOutlined style={{ color: '#666', fontSize: '16px' }} />
-                    <Text style={{ 
-                      fontSize: '18px', 
+                    <Text style={{
+                      fontSize: '18px',
                       color: '#666',
                       fontStyle: 'italic'
                     }}>
@@ -333,7 +329,7 @@ const ProductDetailPage = () => {
                 </div>
 
                 {/* Price Section */}
-                <div style={{ 
+                <div style={{
                   marginBottom: '32px',
                   background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                   padding: '20px',
@@ -342,7 +338,7 @@ const ProductDetailPage = () => {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <Text strong style={{ 
+                      <Text strong style={{
                         color: 'white',
                         fontSize: '32px',
                         fontWeight: 'bold'
@@ -356,9 +352,9 @@ const ProductDetailPage = () => {
                 {/* Stock and Category */}
                 <div style={{ marginBottom: '32px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: '12px',
                       padding: '12px 16px',
                       background: '#f8f9fa',
@@ -367,10 +363,10 @@ const ProductDetailPage = () => {
                       <Text strong style={{ fontSize: '14px', color: '#333', minWidth: '80px' }}>
                         Tình trạng:
                       </Text>
-                      <Tag 
-                        color={book.stockQuantity > 0 ? "green" : "red"} 
-                        style={{ 
-                          fontSize: '14px', 
+                      <Tag
+                        color={book.stockQuantity > 0 ? "green" : "red"}
+                        style={{
+                          fontSize: '14px',
                           margin: 0,
                           padding: '4px 12px',
                           borderRadius: '6px'
@@ -379,9 +375,9 @@ const ProductDetailPage = () => {
                         {book.stockQuantity > 0 ? `Còn ${book.stockQuantity} cuốn` : 'Hết hàng'}
                       </Tag>
                     </div>
-                    <div style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: '12px',
                       padding: '12px 16px',
                       background: '#f8f9fa',
@@ -390,10 +386,10 @@ const ProductDetailPage = () => {
                       <Text strong style={{ fontSize: '14px', color: '#333', minWidth: '80px' }}>
                         Danh mục:
                       </Text>
-                      <Tag 
-                        color="blue" 
-                        style={{ 
-                          fontSize: '14px', 
+                      <Tag
+                        color="blue"
+                        style={{
+                          fontSize: '14px',
                           margin: 0,
                           padding: '4px 12px',
                           borderRadius: '6px'
@@ -407,9 +403,9 @@ const ProductDetailPage = () => {
 
                 {/* Quantity Selector */}
                 <div style={{ marginBottom: '32px' }}>
-                  <div style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: '12px',
                     padding: '16px',
                     background: '#f8f9fa',
@@ -423,7 +419,7 @@ const ProductDetailPage = () => {
                       max={book.stockQuantity}
                       value={quantity}
                       onChange={setQuantity}
-                      style={{ 
+                      style={{
                         width: '120px',
                         borderRadius: '8px'
                       }}
@@ -441,7 +437,7 @@ const ProductDetailPage = () => {
                     onClick={handleAddToCart}
                     disabled={book.stockQuantity === 0 || addingToCart}
                     loading={addingToCart}
-                    style={{ 
+                    style={{
                       width: '100%',
                       height: '52px',
                       fontSize: '16px',
@@ -463,10 +459,10 @@ const ProductDetailPage = () => {
         <Divider style={{ margin: '48px 0' }} />
 
         {/* Product Description */}
-        <Card 
+        <Card
           title={
-            <Title level={3} style={{ 
-              margin: 0, 
+            <Title level={3} style={{
+              margin: 0,
               color: '#1a1a1a',
               display: 'flex',
               alignItems: 'center',
@@ -476,14 +472,14 @@ const ProductDetailPage = () => {
               Mô tả sản phẩm
             </Title>
           }
-          style={{ 
-            borderRadius: '16px', 
+          style={{
+            borderRadius: '16px',
             boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
             border: 'none'
           }}
         >
-          <Paragraph style={{ 
-            fontSize: '16px', 
+          <Paragraph style={{
+            fontSize: '16px',
             lineHeight: '1.8',
             color: '#333',
             margin: 0,
@@ -494,10 +490,10 @@ const ProductDetailPage = () => {
         </Card>
 
         {/* Additional Information */}
-        <Card 
+        <Card
           title={
-            <Title level={3} style={{ 
-              margin: 0, 
+            <Title level={3} style={{
+              margin: 0,
               color: '#1a1a1a',
               display: 'flex',
               alignItems: 'center',
@@ -507,8 +503,8 @@ const ProductDetailPage = () => {
               Thông tin bổ sung
             </Title>
           }
-          style={{ 
-            borderRadius: '16px', 
+          style={{
+            borderRadius: '16px',
             boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
             border: 'none',
             marginTop: '24px'
@@ -516,9 +512,9 @@ const ProductDetailPage = () => {
         >
           <Row gutter={[24, 16]}>
             <Col xs={24} sm={12}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
                 gap: '12px',
                 padding: '12px 16px',
                 background: '#f8f9fa',
@@ -537,9 +533,9 @@ const ProductDetailPage = () => {
               </div>
             </Col>
             <Col xs={24} sm={12}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
                 gap: '12px',
                 padding: '12px 16px',
                 background: '#f8f9fa',

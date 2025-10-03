@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Form,
@@ -9,8 +9,11 @@ import {
   Row,
   Col,
   Divider,
+  Radio,
+  Space,
   Steps,
   Image,
+  Tag,
   Alert,
   Spin
 } from 'antd';
@@ -22,6 +25,8 @@ import {
   ShoppingOutlined,
   ArrowLeftOutlined,
   CheckCircleOutlined,
+  BankOutlined,
+  WalletOutlined,
   TruckOutlined
 } from '@ant-design/icons';
 import { useCart } from '../contexts/CartContext';
@@ -35,9 +40,10 @@ const { TextArea } = Input;
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const { cartItems, getCartTotal } = useCart();
+  const { cartItems, getCartTotal, clearCart } = useCart();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cod');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [form] = Form.useForm();
@@ -91,6 +97,7 @@ const CheckoutPage = () => {
 
       if (response.success) {
         toast.success('Đặt hàng thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.');
+        // API sẽ tự động clear cart sau khi tạo order thành công
         navigate('/orders');
       } else {
         toast.error(response.message || 'Đặt hàng thất bại');

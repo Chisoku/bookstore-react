@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { 
-  Carousel, 
-  Card, 
-  Button, 
-  Input, 
-  Row, 
-  Col, 
-  Tag, 
-  Rate, 
+import {
+  Carousel,
+  Card,
+  Button,
+  Input,
+  Row,
+  Col,
+  Tag,
+  Rate,
   Space,
   Typography,
   Divider,
   Empty
 } from 'antd';
-import { 
-  SearchOutlined, 
-  ShoppingCartOutlined, 
+import {
+  SearchOutlined,
+  ShoppingCartOutlined,
   EyeOutlined,
   FireOutlined,
   BookOutlined,
@@ -54,7 +54,7 @@ const HomePage = () => {
   // Featured books state
   const [featuredBooks, setFeaturedBooks] = useState([]);
   const [featuredLoading, setFeaturedLoading] = useState(false);
-  const [featuredCategoryId, setFeaturedCategoryId] = useState(-1);
+  const [setFeaturedCategoryId] = useState(-1);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -160,7 +160,7 @@ const HomePage = () => {
           stock: book.stockQuantity,
           image: getBase64ImageSrc(book.coverImage)
         }));
-                 setFeaturedBooks(items);
+        setFeaturedBooks(items);
       } else {
         toast.error(response?.message || 'Không tải được sách nổi bật');
       }
@@ -209,9 +209,9 @@ const HomePage = () => {
 
         const totalPages = response.data?.totalPages || 0;
 
-                 setNewestBooks(prev => page === 0 ? items : [...prev, ...items]);
-         setNewestPageIndex(page);
-         setNewestTotalPages(totalPages);
+        setNewestBooks(prev => page === 0 ? items : [...prev, ...items]);
+        setNewestPageIndex(page);
+        setNewestTotalPages(totalPages);
 
         return { success: true };
       }
@@ -232,26 +232,26 @@ const HomePage = () => {
     setSearchQuery(value);
     if (value.trim()) {
       // Search in featured books and newest books only
-      const featuredResults = featuredBooks.filter(book => 
+      const featuredResults = featuredBooks.filter(book =>
         book.title.toLowerCase().includes(value.toLowerCase()) ||
         book.author.toLowerCase().includes(value.toLowerCase())
       );
-      const newestResults = newestBooks.filter(book => 
+      const newestResults = newestBooks.filter(book =>
         book.title.toLowerCase().includes(value.toLowerCase()) ||
         book.author.toLowerCase().includes(value.toLowerCase())
       );
-      
+
       // Combine results and remove duplicates based on book ID
       const combinedResults = [...featuredResults, ...newestResults];
-      const uniqueResults = combinedResults.filter((book, index, self) => 
+      const uniqueResults = combinedResults.filter((book, index, self) =>
         index === self.findIndex(b => b.id === book.id)
       );
-      
+
       setFilteredBooks(uniqueResults);
     } else {
       // When no search query, show all books (featured + newest)
       const allBooks = [...featuredBooks, ...newestBooks];
-      const uniqueAllBooks = allBooks.filter((book, index, self) => 
+      const uniqueAllBooks = allBooks.filter((book, index, self) =>
         index === self.findIndex(b => b.id === book.id)
       );
       setFilteredBooks(uniqueAllBooks);
@@ -299,7 +299,7 @@ const HomePage = () => {
       <Carousel autoplay>
         {bannerItems.map(item => (
           <div key={item.key}>
-            <div 
+            <div
               style={{
                 height: isMobile ? '300px' : '400px',
                 background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${item.image})`,
@@ -314,19 +314,19 @@ const HomePage = () => {
               }}
             >
               <div>
-                <Title 
-                  level={1} 
-                  style={{ 
-                    color: 'white', 
+                <Title
+                  level={1}
+                  style={{
+                    color: 'white',
                     marginBottom: '16px',
                     fontSize: isMobile ? '32px' : '48px'
                   }}
                 >
                   {item.title}
                 </Title>
-                <Text style={{ 
-                  fontSize: isMobile ? '16px' : '20px', 
-                  color: 'white' 
+                <Text style={{
+                  fontSize: isMobile ? '16px' : '20px',
+                  color: 'white'
                 }}>
                   {item.description}
                 </Text>
@@ -339,7 +339,7 @@ const HomePage = () => {
   );
 
   const renderSearch = () => (
-    <div style={{ 
+    <div style={{
       marginBottom: '48px',
       maxWidth: '600px',
       margin: '0 auto 48px auto',
@@ -354,7 +354,7 @@ const HomePage = () => {
         onSearch={handleSearch}
         onChange={(e) => setSearchQuery(e.target.value)}
         value={searchQuery}
-        style={{ 
+        style={{
           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
           borderRadius: '8px'
         }}
@@ -363,17 +363,17 @@ const HomePage = () => {
   );
 
   const renderCategories = () => (
-    <div style={{ 
+    <div style={{
       marginBottom: '48px',
       padding: '0 24px',
       width: '100%'
     }}>
-      <div style={{ 
-        maxWidth: '1200px', 
+      <div style={{
+        maxWidth: '1200px',
         margin: '0 auto',
         width: '100%'
       }}>
-        <Title level={2} style={{ 
+        <Title level={2} style={{
           marginBottom: '32px',
           textAlign: 'center',
           fontSize: isMobile ? '24px' : '32px'
@@ -381,13 +381,13 @@ const HomePage = () => {
           <BookOutlined style={{ marginRight: '12px', color: '#1890ff' }} />
           Danh mục sách
         </Title>
-        
+
         {/* All Books Category */}
         <Row gutter={[24, 24]}>
           <Col xs={12} sm={8} md={6} lg={4}>
-            <Card 
-              hoverable 
-              style={{ 
+            <Card
+              hoverable
+              style={{
                 textAlign: 'center',
                 cursor: 'pointer',
                 borderRadius: '12px',
@@ -405,12 +405,12 @@ const HomePage = () => {
               }}
               onClick={() => navigate('/')}
             >
-              <AppstoreOutlined style={{ 
-                fontSize: '48px', 
-                color: selectedCategoryId === -1 ? '#1890ff' : '#52c41a', 
-                marginBottom: '16px' 
+              <AppstoreOutlined style={{
+                fontSize: '48px',
+                color: selectedCategoryId === -1 ? '#1890ff' : '#52c41a',
+                marginBottom: '16px'
               }} />
-              <div style={{ 
+              <div style={{
                 fontSize: '16px',
                 fontWeight: '600',
                 lineHeight: 1.3,
@@ -430,13 +430,13 @@ const HomePage = () => {
               </div>
             </Card>
           </Col>
-          
+
           {/* Other Categories */}
           {categoryItems.map(category => (
             <Col xs={12} sm={8} md={6} lg={4} key={category.id}>
-              <Card 
-                hoverable 
-                style={{ 
+              <Card
+                hoverable
+                style={{
                   textAlign: 'center',
                   cursor: 'pointer',
                   borderRadius: '12px',
@@ -454,12 +454,12 @@ const HomePage = () => {
                 }}
                 onClick={() => navigate(`/?category=${category.id}`)}
               >
-                <BookOutlined style={{ 
-                  fontSize: '48px', 
-                  color: selectedCategoryId === category.id ? '#1890ff' : '#1890ff', 
-                  marginBottom: '16px' 
+                <BookOutlined style={{
+                  fontSize: '48px',
+                  color: selectedCategoryId === category.id ? '#1890ff' : '#1890ff',
+                  marginBottom: '16px'
                 }} />
-                <div style={{ 
+                <div style={{
                   fontSize: '16px',
                   fontWeight: '600',
                   lineHeight: 1.3,
@@ -486,8 +486,8 @@ const HomePage = () => {
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
           {categoryPageIndex + 1 < categoryTotalPages && (
-            <Button 
-              size="large" 
+            <Button
+              size="large"
               loading={categoryLoading}
               onClick={() => fetchCategories(categoryPageIndex + 1)}
             >
@@ -513,17 +513,17 @@ const HomePage = () => {
           flexDirection: 'column'
         }}
         cover={
-          <div style={{ 
-            height: '320px', 
+          <div style={{
+            height: '320px',
             overflow: 'hidden',
             position: 'relative'
           }}>
             <img
               alt={book.title}
               src={book.image}
-              style={{ 
-                width: '100%', 
-                height: '100%', 
+              style={{
+                width: '100%',
+                height: '100%',
                 objectFit: 'cover',
                 transition: 'transform 0.3s ease'
               }}
@@ -550,13 +550,13 @@ const HomePage = () => {
           </div>
         }
         actions={[
-          <EyeOutlined 
-            key="view" 
+          <EyeOutlined
+            key="view"
             onClick={() => handleViewProduct(book.id)}
             style={{ fontSize: '18px' }}
           />,
-          <ShoppingCartOutlined 
-            key="cart" 
+          <ShoppingCartOutlined
+            key="cart"
             onClick={() => handleAddToCart(book)}
             style={{ fontSize: '18px' }}
           />
@@ -570,7 +570,7 @@ const HomePage = () => {
       >
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           {/* Title */}
-          <div style={{ 
+          <div style={{
             fontSize: '16px',
             fontWeight: '600',
             marginBottom: '8px',
@@ -586,8 +586,8 @@ const HomePage = () => {
           </div>
 
           {/* Author */}
-          <div style={{ 
-            color: '#666', 
+          <div style={{
+            color: '#666',
             marginBottom: '12px',
             fontSize: '14px',
             fontStyle: 'italic'
@@ -604,22 +604,22 @@ const HomePage = () => {
           </div>
 
           {/* Price and Stock - Fixed at bottom */}
-          <div style={{ 
+          <div style={{
             marginTop: 'auto',
             display: 'flex',
             flexDirection: 'column',
             gap: '8px'
           }}>
             {/* Price Section */}
-            <div style={{ 
-              display: 'flex', 
+            <div style={{
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               gap: '8px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Text strong style={{ 
+                <Text strong style={{
                   color: '#f5222d',
                   fontSize: '18px',
                   fontWeight: 'bold'
@@ -627,7 +627,7 @@ const HomePage = () => {
                   {formatPrice(book.price)}
                 </Text>
                 {book.originalPrice > book.price && (
-                  <Text delete style={{ 
+                  <Text delete style={{
                     color: '#999',
                     fontSize: '14px'
                   }}>
@@ -638,25 +638,25 @@ const HomePage = () => {
             </div>
 
             {/* Stock Status */}
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
               flexWrap: 'wrap',
               gap: '4px'
             }}>
-              <Tag 
-                color={book.stock > 0 ? "green" : "red"} 
+              <Tag
+                color={book.stock > 0 ? "green" : "red"}
                 style={{ fontSize: '12px', margin: 0 }}
               >
                 {book.stock > 0 ? `Còn ${book.stock}` : 'Hết hàng'}
               </Tag>
-              
+
               {/* Category - Shortened name */}
-              <Tag 
-                color="blue" 
-                style={{ 
-                  fontSize: '11px', 
+              <Tag
+                color="blue"
+                style={{
+                  fontSize: '11px',
                   margin: 0,
                   maxWidth: '80px',
                   overflow: 'hidden',
@@ -675,19 +675,19 @@ const HomePage = () => {
   );
 
   const renderBooks = () => (
-    <div style={{ 
+    <div style={{
       padding: '0 24px',
       marginBottom: '48px',
       width: '100%'
     }}>
-      <div style={{ 
-        maxWidth: '1200px', 
+      <div style={{
+        maxWidth: '1200px',
         margin: '0 auto',
         width: '100%'
       }}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: '32px',
           flexDirection: isMobile ? 'column' : 'row',
@@ -698,15 +698,15 @@ const HomePage = () => {
             margin: 0,
             textAlign: isMobile ? 'center' : 'left'
           }}>
-            <FireOutlined style={{ 
-              marginRight: '12px', 
-              color: '#f5222d' 
+            <FireOutlined style={{
+              marginRight: '12px',
+              color: '#f5222d'
             }} />
             {searchQuery ? `Kết quả tìm kiếm: "${searchQuery}"` : 'Sách nổi bật'}
           </Title>
           {!searchQuery && (
-            <Button 
-              type="link" 
+            <Button
+              type="link"
               onClick={() => navigate('/')}
               style={{ fontSize: '16px' }}
             >
@@ -714,267 +714,267 @@ const HomePage = () => {
             </Button>
           )}
         </div>
-        
-                 {featuredLoading ? (
-           <div style={{ textAlign: 'center', padding: '48px 0' }}>
-             <div style={{ fontSize: '16px', color: '#666' }}>Đang tải sách nổi bật...</div>
-           </div>
-         ) : searchQuery ? (
-           // When searching, show filtered results
-           filteredBooks.length > 0 ? (
-             <Row gutter={[24, 24]}>
-               {filteredBooks.map(renderBookCard)}
-             </Row>
-           ) : (
-             <Empty 
-               description="Không tìm thấy sách phù hợp" 
-               style={{ padding: '48px 0' }}
-             />
-           )
-         ) : (
-           // When not searching, show only featured books
-           featuredBooks.length > 0 ? (
-             <Row gutter={[24, 24]}>
-               {featuredBooks.map(renderBookCard)}
-             </Row>
-           ) : (
-             <Empty 
-               description="Không có sách nổi bật" 
-               style={{ padding: '48px 0' }}
-             />
-           )
-         )}
+
+        {featuredLoading ? (
+          <div style={{ textAlign: 'center', padding: '48px 0' }}>
+            <div style={{ fontSize: '16px', color: '#666' }}>Đang tải sách nổi bật...</div>
+          </div>
+        ) : searchQuery ? (
+          // When searching, show filtered results
+          filteredBooks.length > 0 ? (
+            <Row gutter={[24, 24]}>
+              {filteredBooks.map(renderBookCard)}
+            </Row>
+          ) : (
+            <Empty
+              description="Không tìm thấy sách phù hợp"
+              style={{ padding: '48px 0' }}
+            />
+          )
+        ) : (
+          // When not searching, show only featured books
+          featuredBooks.length > 0 ? (
+            <Row gutter={[24, 24]}>
+              {featuredBooks.map(renderBookCard)}
+            </Row>
+          ) : (
+            <Empty
+              description="Không có sách nổi bật"
+              style={{ padding: '48px 0' }}
+            />
+          )
+        )}
       </div>
     </div>
   );
 
-    const renderNewestBooks = () => (
-    <div style={{ 
+  const renderNewestBooks = () => (
+    <div style={{
       padding: '0 24px',
       marginBottom: '48px',
       width: '100%'
     }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto',
-          width: '100%'
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        width: '100%'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '32px',
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: isMobile ? '16px' : '0'
         }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            marginBottom: '32px',
-            flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? '16px' : '0'
+          <Title level={2} style={{
+            fontSize: isMobile ? '24px' : '32px',
+            margin: 0,
+            textAlign: isMobile ? 'center' : 'left'
           }}>
-                                                   <Title level={2} style={{
-              fontSize: isMobile ? '24px' : '32px',
-              margin: 0,
-              textAlign: isMobile ? 'center' : 'left'
-            }}>
-              {searchQuery ? (
-                <>
-                  <BookOutlined style={{ 
-                    marginRight: '12px', 
-                    color: '#1890ff' 
-                  }} />
-                  Kết quả tìm kiếm: "{searchQuery}"
-                </>
-                             ) : selectedCategoryId === -1 ? (
-                 <>
-                   <BookOutlined style={{ 
-                     marginRight: '12px', 
-                     color: '#52c41a' 
-                   }} />
-                   Sách mới nhất
-                 </>
-               ) : (
-                <>
-                  <BookOutlined style={{ 
-                    marginRight: '12px', 
-                    color: 'green' 
-                  }} />
-                  Sách mới nhất
-                  {categoryItems.find(cat => cat.id === selectedCategoryId) && (
-                    <span style={{ fontSize: '20px', color: '#666', marginLeft: '8px' }}>
-                      - {categoryItems.find(cat => cat.id === selectedCategoryId).name}
-                    </span>
-                  )}
-                </>
-              )}
-            </Title>
-                          <div style={{ display: 'flex', gap: '12px' }}>
-                {!searchQuery && (
-                  <Button 
-                    type="link" 
-                    onClick={() => resetAndFetchNewest(selectedCategoryId)}
-                    disabled={newestLoading}
-                    style={{ fontSize: '16px' }}
-                  >
-                    Tải lại
-                  </Button>
+            {searchQuery ? (
+              <>
+                <BookOutlined style={{
+                  marginRight: '12px',
+                  color: '#1890ff'
+                }} />
+                Kết quả tìm kiếm: "{searchQuery}"
+              </>
+            ) : selectedCategoryId === -1 ? (
+              <>
+                <BookOutlined style={{
+                  marginRight: '12px',
+                  color: '#52c41a'
+                }} />
+                Sách mới nhất
+              </>
+            ) : (
+              <>
+                <BookOutlined style={{
+                  marginRight: '12px',
+                  color: 'green'
+                }} />
+                Sách mới nhất
+                {categoryItems.find(cat => cat.id === selectedCategoryId) && (
+                  <span style={{ fontSize: '20px', color: '#666', marginLeft: '8px' }}>
+                    - {categoryItems.find(cat => cat.id === selectedCategoryId).name}
+                  </span>
                 )}
-                {selectedCategoryId !== -1 && !searchQuery && (
-                  <Button 
-                    type="link" 
-                    onClick={() => navigate('/')}
-                    style={{ fontSize: '16px', color: '#1890ff' }}
-                  >
-                    Xem tất cả
-                  </Button>
-                )}
-              </div>
+              </>
+            )}
+          </Title>
+          <div style={{ display: 'flex', gap: '12px' }}>
+            {!searchQuery && (
+              <Button
+                type="link"
+                onClick={() => resetAndFetchNewest(selectedCategoryId)}
+                disabled={newestLoading}
+                style={{ fontSize: '16px' }}
+              >
+                Tải lại
+              </Button>
+            )}
+            {selectedCategoryId !== -1 && !searchQuery && (
+              <Button
+                type="link"
+                onClick={() => navigate('/')}
+                style={{ fontSize: '16px', color: '#1890ff' }}
+              >
+                Xem tất cả
+              </Button>
+            )}
           </div>
+        </div>
 
-          {(() => {
-            // Filter newest books based on search query
-            const filteredNewestBooks = searchQuery.trim() 
-              ? newestBooks.filter(book => 
-                  book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  book.author.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-              : newestBooks;
+        {(() => {
+          // Filter newest books based on search query
+          const filteredNewestBooks = searchQuery.trim()
+            ? newestBooks.filter(book =>
+              book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              book.author.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            : newestBooks;
 
-                        return filteredNewestBooks.length > 0 ? (
-              <Row gutter={[24, 24]}>
-                {filteredNewestBooks.map(book => (
-                  <Col xs={24} sm={12} md={8} lg={6} xl={4} key={book.id}>
-                    <Card
-                      hoverable
-                      style={{
-                        height: '100%',
-                        borderRadius: '12px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                        transition: 'all 0.3s ease',
+          return filteredNewestBooks.length > 0 ? (
+            <Row gutter={[24, 24]}>
+              {filteredNewestBooks.map(book => (
+                <Col xs={24} sm={12} md={8} lg={6} xl={4} key={book.id}>
+                  <Card
+                    hoverable
+                    style={{
+                      height: '100%',
+                      borderRadius: '12px',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                      transition: 'all 0.3s ease',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column'
+                    }}
+                    cover={
+                      <div style={{
+                        height: '240px',
                         overflow: 'hidden',
-                        display: 'flex',
-                        flexDirection: 'column'
-                      }}
-                      cover={
-                        <div style={{ 
-                          height: '240px', 
-                          overflow: 'hidden',
-                          position: 'relative',
-                          background: '#fafafa'
-                        }}>
-                          {book.coverImage ? (
-                            <img
-                              alt={book.title}
-                              src={book.coverImage}
-                              style={{ 
-                                width: '100%', 
-                                height: '100%', 
-                                objectFit: 'cover'
-                              }}
-                            />
-                          ) : (
-                            <div style={{
+                        position: 'relative',
+                        background: '#fafafa'
+                      }}>
+                        {book.coverImage ? (
+                          <img
+                            alt={book.title}
+                            src={book.coverImage}
+                            style={{
                               width: '100%',
                               height: '100%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: '#bbb'
-                            }}>
-                              <BookOutlined style={{ fontSize: '48px' }} />
-                            </div>
-                          )}
-                        </div>
-                      }
-                      actions={[
-                        <EyeOutlined 
-                          key="view" 
-                          onClick={() => handleViewProduct(book.id)}
-                          style={{ fontSize: '18px' }}
-                        />,
-                        <ShoppingCartOutlined 
-                          key="cart" 
-                          onClick={() => handleAddToCart(book)}
-                          style={{ fontSize: '18px' }}
-                        />
-                      ]}
-                      bodyStyle={{
-                        flex: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '16px'
-                      }}
-                    >
-                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ 
-                          fontSize: '16px',
-                          fontWeight: '600',
-                          marginBottom: '8px',
-                          lineHeight: '1.4',
-                          height: '44px',
-                          overflow: 'hidden',
-                          display: '-webkit-box',
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: 'vertical',
-                          color: '#333'
-                        }}>
-                          {book.title}
-                        </div>
-                        <div style={{ 
-                          color: '#666', 
-                          marginBottom: '12px',
-                          fontSize: '14px',
-                          fontStyle: 'italic'
-                        }}>
-                          {book.author}
-                        </div>
-                        <div style={{ 
-                          marginTop: 'auto',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between'
-                        }}>
-                          <Text strong style={{ 
-                            color: '#f5222d',
-                            fontSize: '18px',
-                            fontWeight: 'bold'
+                              objectFit: 'cover'
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#bbb'
                           }}>
-                            {formatPrice(book.price)}
-                          </Text>
-                          <Tag 
-                            color={book.stockQuantity > 0 ? 'green' : 'red'}
-                            style={{ fontSize: '12px', margin: 0 }}
-                          >
-                            {book.stockQuantity > 0 ? `Còn ${book.stockQuantity}` : 'Hết hàng'}
-                          </Tag>
-                        </div>
+                            <BookOutlined style={{ fontSize: '48px' }} />
+                          </div>
+                        )}
                       </div>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <Empty 
-                description="Không có sách nào" 
-                style={{ padding: '48px 0' }}
-              />
-            );
-          })()}
+                    }
+                    actions={[
+                      <EyeOutlined
+                        key="view"
+                        onClick={() => handleViewProduct(book.id)}
+                        style={{ fontSize: '18px' }}
+                      />,
+                      <ShoppingCartOutlined
+                        key="cart"
+                        onClick={() => handleAddToCart(book)}
+                        style={{ fontSize: '18px' }}
+                      />
+                    ]}
+                    bodyStyle={{
+                      flex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: '16px'
+                    }}
+                  >
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      <div style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                        lineHeight: '1.4',
+                        height: '44px',
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        color: '#333'
+                      }}>
+                        {book.title}
+                      </div>
+                      <div style={{
+                        color: '#666',
+                        marginBottom: '12px',
+                        fontSize: '14px',
+                        fontStyle: 'italic'
+                      }}>
+                        {book.author}
+                      </div>
+                      <div style={{
+                        marginTop: 'auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}>
+                        <Text strong style={{
+                          color: '#f5222d',
+                          fontSize: '18px',
+                          fontWeight: 'bold'
+                        }}>
+                          {formatPrice(book.price)}
+                        </Text>
+                        <Tag
+                          color={book.stockQuantity > 0 ? 'green' : 'red'}
+                          style={{ fontSize: '12px', margin: 0 }}
+                        >
+                          {book.stockQuantity > 0 ? `Còn ${book.stockQuantity}` : 'Hết hàng'}
+                        </Tag>
+                      </div>
+                    </div>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <Empty
+              description="Không có sách nào"
+              style={{ padding: '48px 0' }}
+            />
+          );
+        })()}
 
-          {!searchQuery && newestBooks.length > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-              {newestPageIndex + 1 < newestTotalPages && (
-                <Button 
-                  size="large" 
-                  loading={newestLoading}
-                  onClick={() => fetchNewestBooks(selectedCategoryId, newestPageIndex + 1)}
-                >
-                  Xem thêm
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
+        {!searchQuery && newestBooks.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+            {newestPageIndex + 1 < newestTotalPages && (
+              <Button
+                size="large"
+                loading={newestLoading}
+                onClick={() => fetchNewestBooks(selectedCategoryId, newestPageIndex + 1)}
+              >
+                Xem thêm
+              </Button>
+            )}
+          </div>
+        )}
       </div>
-    );
+    </div>
+  );
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       background: '#f5f5f5',
       width: '100%',

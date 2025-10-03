@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Form, Input, Button, Avatar, message, Row, Col, Descriptions, Tag } from 'antd';
 import { UserOutlined, EditOutlined, SaveOutlined, CloseOutlined } from '@ant-design/icons';
-import { useAuth } from '../contexts/AuthContext';
 
 const Profile: React.FC = () => {
-  const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  
+
   const [profile, setProfile] = useState<{
     fullName: string;
     email: string;
@@ -100,13 +98,13 @@ const Profile: React.FC = () => {
       <Row gutter={[24, 24]}>
         {/* Profile Card */}
         <Col xs={24} lg={16}>
-          <Card 
-            title="Thông tin hồ sơ" 
+          <Card
+            title="Thông tin hồ sơ"
             className="shadow-sm"
             extra={
               !isEditing ? (
-                <Button 
-                  type="primary" 
+                <Button
+                  type="primary"
                   icon={<EditOutlined />}
                   onClick={handleEdit}
                 >
@@ -114,14 +112,14 @@ const Profile: React.FC = () => {
                 </Button>
               ) : (
                 <div className="space-x-2">
-                  <Button 
+                  <Button
                     icon={<CloseOutlined />}
                     onClick={handleCancel}
                   >
                     Hủy
                   </Button>
-                  <Button 
-                    type="primary" 
+                  <Button
+                    type="primary"
                     icon={<SaveOutlined />}
                     loading={loading}
                     onClick={() => form.submit()}
@@ -151,7 +149,7 @@ const Profile: React.FC = () => {
                     <Input placeholder="Nhập họ và tên" />
                   </Form.Item>
                 </Col>
-                
+
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="Email"
@@ -164,7 +162,7 @@ const Profile: React.FC = () => {
                     <Input placeholder="Nhập email" />
                   </Form.Item>
                 </Col>
-                
+
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="Tên đăng nhập"
@@ -173,7 +171,7 @@ const Profile: React.FC = () => {
                     <Input placeholder="Tên đăng nhập" disabled />
                   </Form.Item>
                 </Col>
-                
+
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="Vai trò"
@@ -191,9 +189,9 @@ const Profile: React.FC = () => {
         <Col xs={24} lg={8}>
           <Card title="Tóm tắt" className="shadow-sm">
             <div className="text-center mb-6">
-              <Avatar 
+              <Avatar
                 size={80}
-                icon={<UserOutlined />} 
+                icon={<UserOutlined />}
                 className="bg-blue-500 mb-4"
               />
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
