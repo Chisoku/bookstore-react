@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Table,
   Button,
-  Space,
   Modal,
   Tag,
   Select,
@@ -22,10 +21,8 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
   DollarOutlined,
-  ClockCircleOutlined,
   BookOutlined,
 } from '@ant-design/icons';
-import type { OrderItem } from '../types';
 import type { Order } from '../services/orders';
 import { getOrders, updateOrderStatus } from '../services/orders';
 
@@ -106,13 +103,13 @@ const Orders: React.FC = () => {
   };
 
   const filteredOrders = orders.filter(order => {
-    const matchesSearch = 
+    const matchesSearch =
       order.customerName.toLowerCase().includes(searchText.toLowerCase()) ||
       order.customerPhone.includes(searchText) ||
       order.orderNumber.toLowerCase().includes(searchText.toLowerCase());
-    
+
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
-    
+
     return matchesSearch && matchesStatus;
   });
 
@@ -162,7 +159,7 @@ const Orders: React.FC = () => {
       key: 'status',
       render: (status: Order['status'], record: Order) => {
         const isDisabled = status === 'completed' || status === 'cancelled';
-        
+
         return (
           <Select
             value={status}
@@ -209,7 +206,6 @@ const Orders: React.FC = () => {
     },
   ];
 
-  const completedOrders = orders.filter(order => order.status === 'completed').length;
 
   return (
     <div className="space-y-6">
@@ -275,7 +271,7 @@ const Orders: React.FC = () => {
             onChange={(e) => setSearchText(e.target.value)}
             className="max-w-md"
           />
-          
+
           <Select
             placeholder="Lọc theo trạng thái"
             value={statusFilter}
@@ -283,13 +279,13 @@ const Orders: React.FC = () => {
             style={{ width: 150 }}
           >
             <Option value="all">Tất cả</Option>
-                      <Option value="pending">Đang xử lý</Option>
-          <Option value="processing">Đang giao</Option>
-          <Option value="completed">Hoàn thành</Option>
-          <Option value="cancelled">Hủy</Option>
+            <Option value="pending">Đang xử lý</Option>
+            <Option value="processing">Đang giao</Option>
+            <Option value="completed">Hoàn thành</Option>
+            <Option value="cancelled">Hủy</Option>
           </Select>
         </div>
-        
+
         <Table
           columns={columns}
           dataSource={filteredOrders}
@@ -305,7 +301,7 @@ const Orders: React.FC = () => {
               setPageIndex((page || 1) - 1); // convert to 0-based for backend
               setPageSize(size || 10);
             },
-            showTotal: (total, range) => 
+            showTotal: (total, range) =>
               `${range[0]}-${range[1]} của ${total} đơn hàng`,
           }}
         />
@@ -362,8 +358,8 @@ const Orders: React.FC = () => {
                     <List.Item.Meta
                       avatar={
                         item.bookCoverImage ? (
-                          <img 
-                            src={item.bookCoverImage} 
+                          <img
+                            src={item.bookCoverImage}
                             alt={item.bookTitle}
                             className="w-12 h-16 object-cover rounded"
                             onError={(e) => {
@@ -372,8 +368,8 @@ const Orders: React.FC = () => {
                             }}
                           />
                         ) : (
-                          <Avatar 
-                            icon={<BookOutlined />} 
+                          <Avatar
+                            icon={<BookOutlined />}
                             className="bg-blue-500"
                           />
                         )
